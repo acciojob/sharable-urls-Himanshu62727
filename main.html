@@ -1,8 +1,49 @@
 <!DOCTYPE html>
-<html>
-  <body>
-    <script type="text/javascript" src="./script.js">
-</script>
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Manipulation</title>
+    <script>
+        function updateUrl() {
+            // Get the input values
+            const name = document.getElementById('name').value;
+            const year = document.getElementById('year').value;
 
+            // Base URL
+            let url = 'https://localhost:8080/';
+
+            // Create query string if inputs are provided
+            let queryString = '?';
+            if (name) {
+                queryString += `name=${encodeURIComponent(name)}&`;
+            }
+            if (year) {
+                queryString += `year=${encodeURIComponent(year)}`;
+            }
+
+            // Remove any trailing "&" or "?" and update the URL text
+            queryString = queryString.endsWith('&') ? queryString.slice(0, -1) : queryString;
+            queryString = queryString === '?' ? '' : queryString;
+
+            // Update the h3 element with the full URL
+            document.getElementById('url').textContent = url + queryString;
+        }
+    </script>
+</head>
+<body>
+
+    <form onsubmit="event.preventDefault(); updateUrl();">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br><br>
+
+        <label for="year">Year:</label>
+        <input type="number" id="year" name="year"><br><br>
+
+        <button id="button" type="submit">Submit</button>
+    </form>
+
+    <h3 id="url">https://localhost:8080/</h3>
+
+</body>
 </html>
